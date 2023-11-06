@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django_user_agents.utils import get_user_agent
-
+import socket #Para conseguir la información del dispositivo
 
 def archivo(request):
     return render(request, 'user/archivo.html', {})
@@ -33,9 +33,10 @@ def my_view(request):
 
 def my_view(request):
 
-    user_agent = get_user_agent(request)
+    user_agent = get_user_agent(request)    
     device_type
     is_touch_device
+      
 
     if user_agent.is_mobile: #Si es móvil
         device_type = "Móvil"
@@ -49,7 +50,8 @@ def my_view(request):
 
     elif user_agent.is_pc: #Si es ordenador
         device_type = "PC"
-
+        
+        
         if user_agent.is_touch_capable: #Si es táctil 
             is_touch_device = True   
         else: #No es táctil
@@ -60,5 +62,10 @@ def my_view(request):
         device_type = "Bot"
         is_touch_device = False 
 
-    
-    return render(request, 'user/archivo.html') #Me devuelve la información en el archivo.html
+
+    ip_cliente = request.META.get('REMOTE_ADDR', '')
+    hostname = socket.gethostname()
+
+    return render(request, 'user/archivo.html', {'ip_cliente': ip_cliente, 'hostname': hostname})
+
+

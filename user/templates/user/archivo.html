@@ -28,7 +28,11 @@
     
     {% if request|is_bot %}
         <p>Es un bot</p>
-{% endif %}
+    {% endif %}
+    
+    <p>IP del cliente: {{ client_ip }}</p>
+    <p>Hostname del cliente: {{ hostname }}</p>
+
 
 </body>
 </html>
