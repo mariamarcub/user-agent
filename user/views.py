@@ -6,7 +6,7 @@ def index(request):
     return render(request, 'user/index.html', {})
 
 
-def info(request):
+def visitar(request):
 
     user_agent = get_user_agent(request)            
 
@@ -38,6 +38,11 @@ def info(request):
     hostname = socket.gethostname() #obtener el nombre
     ip_cliente = socket.gethostbyname(hostname) #obtener la IP
 
-    return render(request, 'user/info.html', {'device_type': device_type, 'is_touch_device': is_touch_device, 'ip_cliente': ip_cliente, 'hostname': hostname})
+    return render(request, 'user/visitar.html', {'device_type': device_type, 'is_touch_device': is_touch_device, 'ip_cliente': ip_cliente, 'hostname': hostname})
+
+
+def info(request):
+    user_agent = request.META.get('HTTP_USER_AGENT', None)
+    return render(request, 'user/info.html', {'user_agent': user_agent})
 
 
